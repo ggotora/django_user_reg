@@ -1,0 +1,38 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+
+{%  block content %}
+<div class="container mt-5">
+<div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ user.profile.image.url }}" class="img-fluid rounded-start" alt="{{ user.profile.image.url }}">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ user.username }}</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% if profile_path %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form | crispy }}
+    {{ profile_form | crispy }}
+    <button type="submit" class="btn btn-outline-primary my-5">Update</button>
+</form>
+{% else %}
+<h2><a href="{% url 'update_profile' %}">Update Your Profile</a></h2>
+
+{% endif %}
+
+
+
+
+
+
+{%  endblock %}
